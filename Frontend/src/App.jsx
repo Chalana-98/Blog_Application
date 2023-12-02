@@ -6,11 +6,16 @@ function App() {
   
 
   return (
-    <>
-    <div>
+
+<div className=' justify-center items-center px-10 mx-10'>
     <Home/>
-    </div>
-    </>
+  </div>
+
+  
+  
+ 
+  
+  
   )
 }
 
