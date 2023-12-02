@@ -40,7 +40,7 @@ function Home() {
 
   return (
    
-    <div className=" gap-5 my-5 flex flex-col justify-center items-center  ">
+    <div className=" gap-5 my-5 flex flex-col justify-center items-center max-w-xl  ">
       {posts.map((post) => (
         <div className="post gap-5 flex justify-center item-center" key={post.id}>
           <div className="post bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">

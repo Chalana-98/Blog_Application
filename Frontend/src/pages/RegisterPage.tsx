@@ -5,7 +5,7 @@ function RegisterPage() {
     <div>
       <section className="bg-gray-50">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900">
+        <a href="#" className="flex items-center mb-6 text-4xl font-semibold text-gray-900">
           Blog App
         </a>
         <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
@@ -66,7 +66,7 @@ function RegisterPage() {
                 Create an account
               </button>
               <p className="text-sm font-light text-gray-500">
-                Already have an account? <a href="#" className="font-medium text-primary-600 hover:underline">Login here</a>
+                Already have an account? <a href="/login" className="font-medium text-gray-900 hover:underline">Login here</a>
               </p>
             </form>
           </div>
