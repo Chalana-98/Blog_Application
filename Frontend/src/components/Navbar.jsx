@@ -1,10 +1,22 @@
 import  { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
+import React, { useEffect } from "react";
+import { useFetchJson } from '../hooks/useFetchJson';
 
 const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isCategoryExpanded, setIsCategoryExpanded] = useState(false);
+  const { error, fetchData, data, isLoading } = useFetchJson("getAllCategory");
+  const { error:e, fetchData:fetchTag, data:tags, isLoading:isLoadingTag } = useFetchJson("getAllTag");
 
+  useEffect(() => {
+    _getCatNTag();
+  }, []);
+
+  const _getCatNTag = async () => {
+    await fetchData();
+    await fetchTag();
+  };
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
@@ -52,9 +64,11 @@ const Navbar = () => {
               {/* Nested Dropdown Menu */}
               {isCategoryExpanded && (
                 <div className="absolute left-0 mt-2 py-2 bg-white border border-gray-100 rounded-lg shadow-lg">
-                  <a href="/?cat=all" className="block px-4 py-2 text-gray-900 hover:bg-gray-100">All</a>
-                  <a href="/?cat=new" className="block px-4 py-2 text-gray-900 hover:bg-gray-100">New</a>
-                  <a href="/?cat=older" className="block px-4 py-2 text-gray-900 hover:bg-gray-100">Older</a>
+                   {data.map((cat) => (
+                     <a href="/?cat=all" key={cat.id} className="block px-4 py-2 text-gray-900 hover:bg-gray-100">{cat.name}</a>
+
+                   ))}
+
                 </div>
               )}
             </li>
