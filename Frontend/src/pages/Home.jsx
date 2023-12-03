@@ -1,10 +1,20 @@
 
-import { Link } from "react-router-dom";
+import { Link, } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+
 import { useFetchJson } from '../hooks/useFetchJson';
 import React, { useEffect } from "react";
 
 function Home() {
   const { error, fetchData, data, isLoading } = useFetchJson("getAllPost");
+
+  const navigate = useNavigate();
+  const passData = { name: 'John', age: 30 };
+
+  function handleClick(post) {
+    const passData = { title: post.title, desc: post.desc, id: post.id }
+    navigate(`/post/${post.id}`, {state: passData });
+  }
 
   useEffect(() => {
     _getPost();
@@ -41,9 +51,14 @@ function Home() {
 
                   className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
-                  <Link className="link" to={`/post/${post.id}`}>
+                  {/* <Link className="link" to={`/post/${post.id}`}>
                     Read more
-                  </Link>
+                  </Link> */}
+
+                  <button onClick={() => handleClick(post)}>
+                    Read moreeee
+
+                  </button>
 
                   <svg
                     className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
