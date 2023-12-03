@@ -5,7 +5,7 @@ import verifyToken from "../middleware/authMiddleware.js";
 const postsRouter = express.Router();
 
 // Get all posts
-postsRouter.get("/", verifyToken, async (req, res) => {
+postsRouter.get("/", async (req, res) => {
   try {
     const posts = await Post.find({});
     res.status(200).json(posts);

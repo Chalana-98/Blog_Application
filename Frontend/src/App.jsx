@@ -21,7 +21,7 @@ const App = () => {
   const { user } = useContext(AuthContext);
 
   return (
-    <Router>
+   
       <Routes>
         <Route path="/" element={user ? <Navigate to="/home" /> : <LoginPage />} />
         {user && (
@@ -61,7 +61,7 @@ const App = () => {
           </>
         )}
       </Routes>
-    </Router>
+    
   );
 };
 

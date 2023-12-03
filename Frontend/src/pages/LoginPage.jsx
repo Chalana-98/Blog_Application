@@ -1,4 +1,5 @@
 import { AuthContext } from "../contexts/authContext/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../contexts/authContext/apiCalls";
 import ErrorModal from "../components/models/ErrorModal";
 import React, { useContext, useState } from "react";
@@ -8,13 +9,18 @@ function LoginPage() {
 
   const { isFetching, dispatch } = useContext(AuthContext);
   const [rememberDevice, setRememberDevice] = useState(false);
+    
+  const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
+    
 
     const { token } = await login({ email, password }, dispatch);
     console.log(token);
 
+
     localStorage.setItem("user", JSON.stringify(token));
+    navigate("/home");
   };
   return (
     <div>

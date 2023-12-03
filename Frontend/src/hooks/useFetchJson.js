@@ -11,6 +11,7 @@ export const useFetchJson = (endPointKey) => {
     try {
       const response = await fetch(apiEndpoints[endPointKey]);
       const json = await response.json();
+      console.log(json);
       setData(json);
       setIsLoading(false);
     } catch (error) {

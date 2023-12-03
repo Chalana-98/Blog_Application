@@ -1,10 +1,13 @@
 import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import useFetchreg from "../hooks/useFetchreg";
 function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
+  
+  const navigate = useNavigate();
   const { fetchFunctionReg } = useFetchreg(
     "register",
     { name, email, password },
@@ -14,6 +17,7 @@ function RegisterPage() {
     e.preventDefault();
 
     await fetchFunctionReg();
+    navigate("/home");
   };
 
   return (
@@ -82,23 +86,7 @@ function RegisterPage() {
                     required
                   />
                 </div>
-                {/* <div>
-                  <label
-                    htmlFor="confirm-password"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
-                    Confirm password
-                  </label>
-                  <input
-                    onChange={(e) => setPassword(e.target.value)}
-                    type="password"
-                    name="confirm-password"
-                    id="confirm-password"
-                    placeholder="••••••••"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    required
-                  />
-                </div> */}
+                
 
                 <button
                   onClick={handleReg}
