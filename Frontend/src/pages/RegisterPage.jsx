@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useFetchreg from "../hooks/useFetchreg";
 
 function RegisterPage() {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");

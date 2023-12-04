@@ -14,10 +14,8 @@ function LoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     
-
     const { token } = await login({ email, password }, dispatch);
     console.log(token);
-
 
     localStorage.setItem("user", JSON.stringify(token));
     navigate("/home");

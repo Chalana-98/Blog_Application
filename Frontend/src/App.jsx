@@ -12,10 +12,11 @@ import Footer from "./components/Footer";
 import CreateBlog from "./pages/CreateBlog";
 import SingleBlog from "./pages/SingleBlog";
 import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
+
 import Home from "./pages/Home";
 
 import { AuthContext } from "./contexts/authContext/AuthContext";
+import RegisterPage from "./pages/RegisterPage";
 
 const App = () => {
   const { user } = useContext(AuthContext);
@@ -57,10 +58,11 @@ const App = () => {
                 </>
               }
             />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
+            
           </>
         )}
+        <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
       </Routes>
     
   );
