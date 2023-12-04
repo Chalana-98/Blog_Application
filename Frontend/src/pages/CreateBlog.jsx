@@ -1,17 +1,15 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useFetchJson } from "../hooks/useFetchJson";
 import useFetchFunction from "../hooks/useFetchFunction";
-
-const options = [
-  { id: 1, name: "tag1" },
-  { id: 2, name: "tag2" },
-];
+import { useNavigate } from "react-router-dom";
 
 function CreateBlog() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
   const [tags, setTags] = useState("");
+
+  const navigate = useNavigate()
 
   const {
     error,
@@ -49,11 +47,12 @@ function CreateBlog() {
     e.preventDefault();
     console.log("category", category);
     console.log("tags", tags);
-
     await fetchFunction();
+    navigate('/home')
+    
   };
   return (
-    <div className="flex justify-center items-center my-28 mx-10">
+    <div className="flex justify-center items-center my-28 mx-10 min-h-[80vh]">
       <form className="w-full max-w-lg" action="#">
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full  px-3">
@@ -158,7 +157,7 @@ function CreateBlog() {
         <button
           onClick={handleCreate}
           type="submit"
-          className="w-full text-black bg-gray-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-bold rounded-lg text-md px-5 py-2.5 text-center"
+          className="w-full mt-12 text-black bg-gray-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-bold rounded-lg text-md px-5 py-2.5 text-center"
         >
           Create
         </button>

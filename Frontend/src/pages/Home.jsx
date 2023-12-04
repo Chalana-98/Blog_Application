@@ -9,10 +9,10 @@ function Home() {
   const { error, fetchData, data, isLoading } = useFetchJson("getAllPost");
 
   const navigate = useNavigate();
-  const passData = { name: 'John', age: 30 };
+
 
   function handleClick(post) {
-    const passData = { title: post.title, desc: post.desc, id: post.id }
+    const passData = { title: post.title, content: post.content, id: post.id }
     navigate(`/post/${post.id}`, {state: passData });
   }
 
@@ -21,8 +21,13 @@ function Home() {
   }, []);
 
   const _getPost = async () => {
-    await fetchData();
-    console.log(error);
+    try {
+      await fetchData();
+    } catch (err){
+      console.log(error);
+    }
+   
+   
   };
   if (isLoading) {
     return (
@@ -33,7 +38,7 @@ function Home() {
   }
 
   return (
-    <div className=" flex items-center justify-center">
+    <div className="flex items-center justify-center min-h-[80vh]">
       <div className=" gap-5 my-5 flex flex-col mx-10 items- max-w-xl  ">
         {data.map((post) => (
           <div className="post gap-5 flex justify-center item-center" key={post._id}>
@@ -45,7 +50,7 @@ function Home() {
                   </h5>
                 </a>
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                  {post.desc}
+                  {post.content}
                 </p>
                 <button
 
@@ -56,7 +61,7 @@ function Home() {
                   </Link> */}
 
                   <button onClick={() => handleClick(post)}>
-                    Read moreeee
+                    Read more
 
                   </button>
 

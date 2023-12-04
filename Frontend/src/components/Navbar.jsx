@@ -1,5 +1,5 @@
-import  { useState } from 'react';
-import { Link} from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect } from "react";
 import { useFetchJson } from '../hooks/useFetchJson';
 
@@ -7,10 +7,15 @@ const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isCategoryExpanded, setIsCategoryExpanded] = useState(false);
   const { error, fetchData, data, isLoading } = useFetchJson("getAllCategory");
-  const { error:e, fetchData:fetchTag, data:tags, isLoading:isLoadingTag } = useFetchJson("getAllTag");
+  const { error: e, fetchData: fetchTag, data: tags, isLoading: isLoadingTag } = useFetchJson("getAllTag");
+
+  const navigate = useNavigate()
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     _getCatNTag();
+    const user = localStorage.getItem("user")
+    setUser(user)
   }, []);
 
   const _getCatNTag = async () => {
@@ -25,11 +30,18 @@ const Navbar = () => {
     setIsCategoryExpanded(!isCategoryExpanded);
   };
 
+  const handleLogout = () => {
+    // localStorage.removeItem("user");
+    // setUser(null);
+    navigate('/home')
+
+  }
+
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-         
+
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Blog App</span>
         </a>
         <button
@@ -42,7 +54,7 @@ const Navbar = () => {
         >
           <span className="sr-only">Open main menu</span>
           <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15"/>
+            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
           </svg>
         </button>
         <div className={`w-full md:flex md:w-auto ${isExpanded ? 'block' : 'hidden'}`} id="navbar-default">
@@ -58,25 +70,28 @@ const Navbar = () => {
               >
                 Category
                 <svg className="w-2.5 h-2.5 ml-1 inline-block" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg" fill="none">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
                 </svg>
               </button>
               {/* Nested Dropdown Menu */}
               {isCategoryExpanded && (
                 <div className="absolute left-0 mt-2 py-2 bg-white border border-gray-100 rounded-lg shadow-lg">
-                   {data.map((cat) => (
-                     <a href="/?cat=all" key={cat.id} className="block px-4 py-2 text-gray-900 hover:bg-gray-100">{cat.name}</a>
+                  {data.map((cat) => (
+                    <a href="/?cat=all" key={cat.id} className="block px-4 py-2 text-gray-900 hover:bg-gray-100">{cat.name}</a>
 
-                   ))}
+                  ))}
 
                 </div>
               )}
             </li>
-            
-            <button type="button" className="text-white  bg-green-400 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center my-5 sm:my-0 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-800"><Link className=' ' to= {'/create'}>Create Post</Link></button>
-            <button type="button" className="text-white  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><Link className=' ' to= {'/login'}>Login</Link></button>
-            
-            {/* Other list items */}
+
+            {user &&
+              <button type="button" className="text-white  bg-green-400 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center my-5 sm:my-0 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-800"><Link className=' ' to={'/create'}>Create Post</Link></button>
+            }
+
+
+            {user ? <button onClick={handleLogout} className="text-white  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">log out</button> : <button type="button" className="text-white  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><Link className=' ' to={'/login'}>Login</Link></button>}
+
           </ul>
         </div>
       </div>
